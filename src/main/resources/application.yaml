@@ -1,6 +1,9 @@
 spring:
   application:
-    name: assistencia-uniesp
+    name: assistencia
+
+  profiles:
+    active: local
 
   datasource:
     url: ${DB_URL}
