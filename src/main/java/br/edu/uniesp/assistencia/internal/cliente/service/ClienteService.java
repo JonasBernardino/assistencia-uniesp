@@ -34,6 +34,14 @@ public class ClienteService {
     }
 
     @Transactional(readOnly = true)
+    public ClienteEntity buscarEntidadePorId(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() ->
+                        new RecursoNaoEncontradoException("Cliente", id)
+                );
+    }
+
+    @Transactional(readOnly = true)
     public Page<ClienteResumoResponse> listarTodos(Pageable pageable) {
         return clienteRepository.findAll(pageable)
                 .map(ClienteMapper::paraResumoResposta);
