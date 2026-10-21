@@ -28,20 +28,27 @@ public class OrdemServicoService {
 
 
     @Transactional
-    public CriarOrdemServicoResponse abrirOrdemServico(CriarOrdemServicoRequest request) {
-        ClienteEntity cliente = clienteService.buscarEntidadePorId(request.clienteId());
+    public CriarOrdemServicoResponse abrirOrdemServico(
+            CriarOrdemServicoRequest request) {
+
+        ClienteEntity cliente = clienteService
+                .buscarEntidadePorId(request.clienteId());
         if (!cliente.isAtivo()) {
-            throw new RegraNegocioException("Não é permitido abrir Ordem de Serviço para um cliente inativo.");
+            throw new RegraNegocioException
+                    ("Não é permitido abrir Ordem de Serviço para um cliente inativo.");
         }
 
-        EquipamentoEntity equipamento = equipamentoService.buscarEntidadePorId(request.equipamentoId());
+        EquipamentoEntity equipamento = equipamentoService
+                .buscarEntidadePorId(request.equipamentoId());
         if (!equipamento.getCliente().getId().equals(cliente.getId())) {
-            throw new RegraNegocioException("O equipamento informado não pertence ao cliente indicado.");
+            throw new RegraNegocioException(
+                    "O equipamento informado não pertence ao cliente indicado.");
         }
 
         String numeroProtocolo = gerarNumeroProtocolo();
 
-        OrdemServicoEntity ordemServico = OrdemServicoMapper.paraEntidade(request, numeroProtocolo, cliente, equipamento);
+        OrdemServicoEntity ordemServico = OrdemServicoMapper
+                .paraEntidade(request, numeroProtocolo, cliente, equipamento);
 
 
         ordemServicoRepository.save(ordemServico);
