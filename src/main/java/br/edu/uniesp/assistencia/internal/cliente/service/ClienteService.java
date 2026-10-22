@@ -63,4 +63,12 @@ public class ClienteService {
         cliente.ativar();
     }
 
+    @Transactional(readOnly = true)
+    public ClienteEntity buscarEntidadePorId(Long id) {
+        return clienteRepository.findById(id)
+                .orElseThrow(() ->
+                        new RecursoNaoEncontradoException("Cliente", id)
+                );
+    }
+
 }

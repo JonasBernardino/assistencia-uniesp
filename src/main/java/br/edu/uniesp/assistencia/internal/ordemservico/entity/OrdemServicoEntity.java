@@ -84,6 +84,7 @@ public class OrdemServicoEntity {
         adicionarHistorico(null, StatusOrdemServico.RECEBIDA, "SISTEMA", "Abertura da ordem de serviço.");
     }
 
+
     public void atribuirTecnico(TecnicoEntity tecnico, String responsavel) {
         if (tecnico == null || !tecnico.isAtivo()) {
             throw new RegraNegocioException("Somente um técnico ativo pode ser atribuído à Ordem de Serviço.");
